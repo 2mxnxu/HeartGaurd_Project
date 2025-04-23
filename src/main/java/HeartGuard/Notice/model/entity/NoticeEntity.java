@@ -18,9 +18,7 @@ public class NoticeEntity extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int adbno;
-
     private String adbtitle;
-
     private String adbcontent;
 
     @ManyToOne

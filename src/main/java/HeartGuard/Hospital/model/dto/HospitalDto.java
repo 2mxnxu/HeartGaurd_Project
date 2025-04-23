@@ -1,5 +1,6 @@
 package HeartGuard.Hospital.model.dto;
 
+import HeartGuard.Hospital.model.entity.HospitalEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

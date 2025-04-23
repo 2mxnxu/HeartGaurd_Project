@@ -1,7 +1,9 @@
 package HeartGuard.Log.model.entity;
 
 import HeartGuard.Hospital.model.entity.HospitalEntity;
+import HeartGuard.Log.model.dto.BaseTime;
 import HeartGuard.Log.model.dto.LogDto;
+import HeartGuard.User.model.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.apache.catalina.User;
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class LogEntity {
+public class LogEntity extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lno;
@@ -35,7 +37,7 @@ public class LogEntity {
         return LogDto.builder()
                 .lno(lno)
                 .lloc(lloc)
-                .ldate(ldate)
+                .ldate(this.getCreateAt())
                 .uno(userEntity.getUno())
                 .hno(hospitalEntity.getHno())
                 .build();
