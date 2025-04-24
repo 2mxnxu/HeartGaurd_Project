@@ -43,6 +43,9 @@ dependencies {
 
     //7. Redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // 8. xml -> map 변환
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
 }
 
 tasks.named('test') {
