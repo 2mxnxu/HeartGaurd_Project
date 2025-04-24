@@ -20,10 +20,6 @@ public class HospitalController {
     private final HospitalService hospitalService;
     private final AedService aedService;
 
-    @PostMapping("/merge")
-    public List<HospitalDto> mergeHospitals(@RequestBody String jsonData) throws IOException {
-        return hospitalService.mergeHospitalInfo(jsonData);
-    }
 
     @PutMapping("/put")
     public Map<String, Object> postHospitals() {
