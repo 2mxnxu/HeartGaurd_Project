@@ -48,7 +48,7 @@ public class HospitalService {
                 hospital.setEmgTel(emgTel);
                 hospital.setAddress((String) data.get("주소"));
 
-                hospitalEntityRepository.save(hospital); // ✅ update only
+                hospitalEntityRepository.save(hospital); //  update only
             }
         }
 
