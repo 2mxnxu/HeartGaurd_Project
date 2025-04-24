@@ -5,6 +5,7 @@ import HeartGuard.Aed.service.AedService;
 import HeartGuard.Hospital.model.dto.HospitalDto;
 import HeartGuard.Hospital.service.HospitalService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -26,5 +27,13 @@ public class HospitalController {
         Map<String, Object> jsonData = aedService.test2(); // 외부 API 호출
         return hospitalService.postHospitals(jsonData);    // DB 저장 후 결과 반환
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody HospitalDto hospitalDto){
+        String token =hospitalService.login(hospitalDto);
+        if(token != null){return ResponseEntity.status(200).body(token);}
+        else {return ResponseEntity.status(401).body("로그인실패");}
+    }
+
 
 }
