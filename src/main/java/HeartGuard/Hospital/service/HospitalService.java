@@ -3,10 +3,13 @@ package HeartGuard.Hospital.service;
 import HeartGuard.Hospital.model.dto.HospitalDto;
 import HeartGuard.Hospital.model.entity.HospitalEntity;
 import HeartGuard.Hospital.model.repository.HospitalEntityRepository;
+import HeartGuard.Util.JwtUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,13 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
 public class HospitalService {
 
     private final HospitalEntityRepository hospitalEntityRepository;
+    private final JwtUtil jwtUtil;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     public Map<String, Object> postHospitals(Map<String, Object> jsonData) {
         List<Map<String, Object>> dataList = (List<Map<String, Object>>) jsonData.get("data");
@@ -52,7 +59,6 @@ public class HospitalService {
             }
         }
 
-
         return Map.of(
                 "status", "success",
                 "message", "병원 정보 저장 완료",
@@ -60,6 +66,17 @@ public class HospitalService {
         );
     }
 
+    public String login(HospitalDto hospitalDto){
+        HospitalEntity hospitalEntity = hospitalEntityRepository.findByHid(hospitalDto.getHid());
+        if(hospitalEntity == null){return null;}
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        boolean inMath = passwordEncoder.matches(hospitalDto.getHpwd(), hospitalEntity.getHpwd());
+        if(inMath == false){return null;}
+        String token = jwtUtil.createToken2(hospitalEntity.getHid());
+        System.out.println(">> 발급된 토큰 : "+token);
+        stringRedisTemplate.opsForValue().set("RECCENT_LOGIN:"+hospitalDto.getHid(), "true", 1, TimeUnit.DAYS);
+        return token;
+    }
 }
 
 
