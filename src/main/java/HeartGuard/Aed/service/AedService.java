@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +87,8 @@ public class AedService {
         }
     }
 
-    public void test2() {
+    public Map<String, Object> test2() {
+        Map<String, Object> resultMap = new HashMap<>();
         try {
             StringBuilder urlBuilder = new StringBuilder("https://api.odcloud.kr/api/15081393/v1/uddi:7a3d6102-27dd-4e1c-8dff-f424bd2d5f95");
             urlBuilder.append("?page=1&perPage=21");
@@ -107,22 +109,17 @@ public class AedService {
                 sb.append(line);
             }
 
-            // ✅ JSON 파서 사용
             ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, Object> jsonMap = objectMapper.readValue(sb.toString(), Map.class);
-
-            List<Map<String, Object>> itemList = (List<Map<String, Object>>) jsonMap.get("data");
-
-            // 출력 테스트
-            for (Map<String, Object> item : itemList) {
-                System.out.println(item);
-            }
+            resultMap = objectMapper.readValue(sb.toString(), Map.class);
 
             rd.close();
             conn.disconnect();
-
         } catch (Exception e) {
             System.out.println("에러 발생: " + e);
         }
+
+        return resultMap;
     }
+
 }
+
