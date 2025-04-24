@@ -1,6 +1,6 @@
-package HeartGuard.controller;
+package HeartGuard.Aed.controller;
 
-import HeartGuard.service.AedService;
+import HeartGuard.Aed.service.AedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
