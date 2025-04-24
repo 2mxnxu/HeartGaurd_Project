@@ -1,8 +1,8 @@
-package HeartGuard.service;
+package HeartGuard.Hospital.service;
 
-import HeartGuard.model.dto.HospitalInfoDTO;
-import HeartGuard.model.entity.HospitalTestEntity;
-import HeartGuard.model.repository.HospitalRepository;
+import HeartGuard.Hospital.model.dto.HospitalDto;
+import HeartGuard.Hospital.model.entity.HospitalEntity;
+import HeartGuard.Hospital.model.repository.HospitalEntityRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +17,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class HospitalService {
 
-    private final HospitalRepository hospitalRepository;
+    private final HospitalEntityRepository hospitalEntityRepository;
 
     // JSON 파싱 예시 (공공데이터 String으로 받음)
-    public List<HospitalInfoDTO> mergeHospitalInfo(String jsonData) throws IOException {
+    public List<HospitalDto> mergeHospitalInfo(String jsonData) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(jsonData);
-        List<HospitalInfoDTO> result = new ArrayList<>();
+        List<HospitalDto> result = new ArrayList<>();
 
         for (JsonNode node : root) {
-            HospitalInfoDTO dto = new HospitalInfoDTO();
+            HospitalDto dto = new HospitalDto();
             System.out.println(node);
             dto.setType(node.get("구분(권역응급 의료센터_지역응급 의료센터)").asText());
             dto.setName(node.get("병원명").asText());
@@ -41,7 +41,7 @@ public class HospitalService {
             dto.setApino(apino);
 
             // 병원 테이블에서 일치하는 로그인 정보 찾기
-            Optional<HospitalTestEntity> match = hospitalRepository.findByApino(apino);
+            Optional<HospitalEntity> match = hospitalEntityRepository.findByApino(apino);
             match.ifPresent(h -> {
                 dto.setHid(h.getHid());
                 dto.setHpwd(h.getHpwd());

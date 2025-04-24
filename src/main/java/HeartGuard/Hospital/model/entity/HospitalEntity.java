@@ -20,6 +20,12 @@ public class HospitalEntity {
     private String hpwd;
     @Column(nullable = false)
     private int apino;
+    private String type;
+    private String name;
+    private String location;
+    private String tel;
+    private String emgTel;
+    private String address;
 
     public HospitalDto toDto(){
         return HospitalDto.builder()
@@ -27,6 +33,12 @@ public class HospitalEntity {
                 .hid(hid)
                 .hpwd(hpwd)
                 .apino(apino)
+                .type(type)
+                .name(name)
+                .location(location)
+                .tel(tel)
+                .emgTel(emgTel)
+                .address(address)
                 .build();
     }
 }

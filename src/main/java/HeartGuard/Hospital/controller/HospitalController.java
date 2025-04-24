@@ -1,8 +1,8 @@
-package HeartGuard.controller;
+package HeartGuard.Hospital.controller;
 
 
-import HeartGuard.model.dto.HospitalInfoDTO;
-import HeartGuard.service.HospitalService;
+import HeartGuard.Hospital.model.dto.HospitalDto;
+import HeartGuard.Hospital.service.HospitalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +18,7 @@ public class HospitalController {
     private final HospitalService hospitalService;
 
     @PostMapping("/merge")
-    public List<HospitalInfoDTO> mergeHospitals(@RequestBody String jsonData) throws IOException {
+    public List<HospitalDto> mergeHospitals(@RequestBody String jsonData) throws IOException {
         return hospitalService.mergeHospitalInfo(jsonData);
     }
 }
