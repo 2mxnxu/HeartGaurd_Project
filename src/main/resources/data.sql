@@ -29,29 +29,28 @@ INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('jeon', 'jeon', '전�
 INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('bear', '0305', '류예나', 0, '010-2222-2227');
 
 -- 공지사항 게시판
-INSERT INTO adboard(adbtitle, adbcontent, uno) VALUES ('AED 가이드', '동영상 참고', 1);
-INSERT INTO adboard(adbtitle, adbcontent, uno) VALUES ('CPR 가이드', '사진 참고', 1);
+INSERT INTO adboard(adbtitle, adbcontent,create_at, uno) VALUES ('AED 가이드', '동영상 참고',now(), 1);
+INSERT INTO adboard(adbtitle, adbcontent,create_at, uno) VALUES ('CPR 가이드', '사진 참고',now(), 1);
 
 -- AED 설치 건의 게시판
-INSERT INTO install(ititle, icontent, uno) VALUES
-('설치 건의', '인천 부평구 부평1동에 설치 해주세요', '2025-01-02 00:00:00', 5),
-('설치 건의', '인천 부평구 부평1동에 설치 해주세요', '2025-01-03 00:00:00', 2),
-('설치 건의', '인천 부평구 부평1동에 설치 해주세요', '2025-02-11 00:00:00', 3),
-('설치 건의', '인천 부평구 부평1동에 설치 해주세요', '2025-04-10 00:00:00', 4);
-
+INSERT INTO install(ititle, icontent,create_at, uno) VALUES
+('설치 건의', '인천 부평구 부평1동에 설치 해주세요',now(), 5),
+('설치 건의', '인천 부평구 부평1동에 설치 해주세요',now(), 2),
+('설치 건의', '인천 부평구 부평1동에 설치 해주세요',now(), 3),
+('설치 건의', '인천 부평구 부평1동에 설치 해주세요',now(), 4);
 
 -- AED 답글
-INSERT INTO ireply(rcontent, rdate, uno, ino) VALUES
-('수용하도록', '2025-01-05 10:00:00', 1, 1),
-('수용', '2025-01-06 11:00:00', 1, 2),
-('하도록', '2025-02-13 09:30:00', 1, 3),
-('설치하겠습니다', '2025-04-11 14:20:00', 1, 4);
+INSERT INTO ireply(rcontent,create_at, uno, ino) VALUES
+('수용하도록',now(), 1, 1),
+('수용',now(), 1, 2),
+('하도록',now(), 1, 3),
+('설치하겠습니다',now(), 1, 4);
 
 -- 호출 로그
-INSERT INTO hlog(lloc, ldate, uno, hno) VALUES
-('인천시 남동구', '2023-01-01 00:00:00', 3, 1),
-('인천시 부평구', '2023-01-02 12:00:00', 4, 2),
-('인천시 서구', '2023-01-01 16:00:00', 5, 3);
+INSERT INTO hlog(lloc, uno, hno, create_at) VALUES
+('인천시 남동구', 3, 1, now()),
+('인천시 부평구', 4, 2, now()),
+('인천시 서구', 5, 3, now());
 
 -- 일반 사용자(uno=3)가 답글 작성
 INSERT INTO ireply (rcontent, uno, ino) VALUES ('저도 찬성입니다', 3, 2);
