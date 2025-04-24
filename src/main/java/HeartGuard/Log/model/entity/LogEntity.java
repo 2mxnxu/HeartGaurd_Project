@@ -23,7 +23,6 @@ public class LogEntity extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int lno;
     private String lloc;
-    private LocalDateTime ldate;
 
     @ManyToOne
     @JoinColumn(name = "uno", referencedColumnName = "uno")
@@ -37,7 +36,6 @@ public class LogEntity extends BaseTime {
         return LogDto.builder()
                 .lno(lno)
                 .lloc(lloc)
-                .ldate(this.getCreateAt())
                 .uno(userEntity.getUno())
                 .hno(hospitalEntity.getHno())
                 .build();

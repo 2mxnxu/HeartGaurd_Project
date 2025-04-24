@@ -53,10 +53,10 @@ INSERT INTO hlog(lloc, uno, hno, create_at) VALUES
 ('인천시 서구', 5, 3, now());
 
 -- 일반 사용자(uno=3)가 답글 작성
-INSERT INTO ireply (rcontent, uno, ino) VALUES ('저도 찬성입니다', 3, 2);
+INSERT INTO ireply (rcontent,create_at, uno, ino) VALUES ('저도 찬성입니다',now(), 3, 2);
 -- 상태 확인 → 그대로 0
 SELECT ino, istate FROM install WHERE ino = 2;
 -- 관리자(uno=1)가 답글 작성
-INSERT INTO ireply (rcontent, uno, ino) VALUES ('설치하겠습니다', 1, 2);
+INSERT INTO ireply (rcontent,create_at, uno, ino) VALUES ('설치하겠습니다',now(), 1, 2);
 -- 상태 확인 → 이제 1로 바뀜
 SELECT ino, istate FROM install WHERE ino = 2;

@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 public class LogDto {
     private int lno;
     private String lloc;
-    private LocalDateTime ldate;
     private int uno;
     private int hno;
 
@@ -25,7 +24,6 @@ public class LogDto {
         return LogEntity.builder()
                 .lno(this.lno)
                 .lloc(this.lloc)
-                .ldate(this.ldate)
                 .userEntity(userEntity)
                 .hospitalEntity(hospitalEntity)
                 .build();
