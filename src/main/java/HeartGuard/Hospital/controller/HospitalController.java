@@ -35,6 +35,17 @@ public class HospitalController {
         else {return ResponseEntity.status(401).body("로그인실패");}
     }
 
+    @GetMapping("/info")
+    public ResponseEntity<HospitalDto> info(@RequestHeader("Authorization") String token){
+        System.out.println(token);
+        HospitalDto hospitalDto = hospitalService.info(token);
+        if(hospitalDto != null){return ResponseEntity.status(200).body(hospitalDto);}
+        else {return ResponseEntity.status(403).build();}
+    }
 
-
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String token){
+        hospitalService.logout(token);
+        return ResponseEntity.status(204).build();
+    }
 }

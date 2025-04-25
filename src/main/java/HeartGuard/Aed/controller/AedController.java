@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/heart")
 @RequiredArgsConstructor
@@ -22,8 +24,7 @@ public class AedController {
     }
 
     @GetMapping("/api2")
-    public String getHospitalInfo(){
-        aedService.test2();
-        return "병원 정보 콘솔 출력";
+    public Map<String, Object> getHospitalInfo(){
+        return aedService.test2();
     }
 }

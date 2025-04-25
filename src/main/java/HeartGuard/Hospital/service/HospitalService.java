@@ -77,6 +77,20 @@ public class HospitalService {
         stringRedisTemplate.opsForValue().set("RECCENT_LOGIN:"+hospitalDto.getHid(), "true", 1, TimeUnit.DAYS);
         return token;
     }
+
+    public HospitalDto info(String token){
+        String hid = jwtUtil.validateToken2(token);
+        if(hid == null){return null;}
+        HospitalEntity hospitalEntity = hospitalEntityRepository.findByHid(hid);
+        if(hospitalEntity == null){return null;}
+        return hospitalEntity.toDto();
+    }
+
+    public void logout(String token){
+        String hid = jwtUtil.validateToken2(token);
+        jwtUtil.deleteToken2(hid);
+    }
+
 }
 
 

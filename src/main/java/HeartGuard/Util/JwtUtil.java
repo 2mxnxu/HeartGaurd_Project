@@ -83,7 +83,8 @@ public class JwtUtil {
             System.out.println( claims.getSubject() );
             String hid = claims.getSubject();
             String redisToken = stringRedisTemplate.opsForValue().get("JWT:"+hid);
-            if( hid.equals( redisToken ) ){ return  hid; }
+            System.out.println("redisToken = " + redisToken );
+            if( token2.equals( redisToken ) ){ return  hid; }
             else{  System.out.println(" >> 중복 로그인 감지 또는 토큰 없음");  }
 
         }catch ( ExpiredJwtException e){
