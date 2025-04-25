@@ -28,35 +28,24 @@ INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('1111', '1111', '장�
 INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('jeon', 'jeon', '전은서', 0, '010-2222-2226');
 INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('bear', '0305', '류예나', 0, '010-2222-2227');
 
--- 공지사항 게시판
-INSERT INTO adboard(adbtitle, adbcontent,create_at, uno) VALUES ('AED 가이드', '동영상 참고',now(), 1);
-INSERT INTO adboard(adbtitle, adbcontent,create_at, uno) VALUES ('CPR 가이드', '사진 참고',now(), 1);
+-- 1. category (카테고리 샘플 데이터)
+insert into category (cname) values
+('공지사항'),
+('AED 건의사항');
 
--- AED 설치 건의 게시판
-INSERT INTO install(ititle, icontent,create_at, uno) VALUES
-('설치 건의', '인천 부평구 부평1동에 설치 해주세요',now(), 5),
-('설치 건의', '인천 부평구 부평1동에 설치 해주세요',now(), 2),
-('설치 건의', '인천 부평구 부평1동에 설치 해주세요',now(), 3),
-('설치 건의', '인천 부평구 부평1동에 설치 해주세요',now(), 4);
+-- 2. board (uno=1~2번 회원이 작성, cno는 위에서 만든 카테고리)
+insert into board (btitle, bcontent, cno, uno) values
+('첫 번째 공지입니다.', '길병원 관련 안내입니다.', 1, 1),
+('문의드립니다', 'AED 더 설치해주세요', 2, 2),
+('AED 설치 요망', '인천 남동구에 AED 더 설치해주세요', 2, 3);
+-- 3. ireply (uno=1이 댓글 작성, bno는 위 게시글 번호로 가정)
+insert into ireply (rcontent, uno, bno) values
+('설치 완료', 1, 2),
+('설치 완료', 1, 3);
 
--- AED 답글
-INSERT INTO ireply(rcontent,create_at, uno, ino) VALUES
-('수용하도록',now(), 1, 1),
-('수용',now(), 1, 2),
-('하도록',now(), 1, 3),
-('설치하겠습니다',now(), 1, 4);
-
--- 호출 로그
-INSERT INTO hlog(lloc, uno, hno, create_at) VALUES
-('인천시 남동구', 3, 1, now()),
-('인천시 부평구', 4, 2, now()),
-('인천시 서구', 5, 3, now());
-
--- 일반 사용자(uno=3)가 답글 작성
-INSERT INTO ireply (rcontent,create_at, uno, ino) VALUES ('저도 찬성입니다',now(), 3, 2);
--- 상태 확인 → 그대로 0
-SELECT ino, istate FROM install WHERE ino = 2;
--- 관리자(uno=1)가 답글 작성
-INSERT INTO ireply (rcontent,create_at, uno, ino) VALUES ('설치하겠습니다',now(), 1, 2);
--- 상태 확인 → 이제 1로 바뀜
-SELECT ino, istate FROM install WHERE ino = 2;
+-- 4. hlog (병원 방문 기록, uno=1,2,3,4번 사용자, hno=1~4로 가정)
+insert into hlog (llat, llong, lstate, uno, hno) values
+('37.448894', '126.702515', 1, 1, 1),  -- 길병원
+('37.456486', '126.633448', 1, 2, 2),  -- 인하대병원
+('37.474467', '126.642024', 1, 3, 3),  -- 인천성모병원
+('37.518291', '126.719215', 1, 4, 4);  -- 국제성모병원
