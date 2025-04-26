@@ -1,6 +1,5 @@
 package HeartGuard.User.model.dto;
 
-import HeartGuard.Board.model.entity.BoardEntity;
 import HeartGuard.User.model.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

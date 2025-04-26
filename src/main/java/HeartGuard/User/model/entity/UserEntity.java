@@ -1,6 +1,5 @@
 package HeartGuard.User.model.entity;
 
-import HeartGuard.Board.model.dto.BoardDto;
 import HeartGuard.User.model.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
