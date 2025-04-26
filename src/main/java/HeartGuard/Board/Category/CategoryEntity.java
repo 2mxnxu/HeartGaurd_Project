@@ -17,12 +17,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryEntity extends BaseTime {
-    @Id // preimary key
+    @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY ) // auto_increment
-    private long cno; // 카테고리 식별번호
+    private long cno;
 
-    @Column( nullable = false , length = 100 ) // not null , 최대길이 :100
-    private String cname; // 카테고리 이름
+    @Column( nullable = false , length = 100 )
+    private String cname;
 
 
 }
