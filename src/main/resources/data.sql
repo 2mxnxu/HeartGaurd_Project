@@ -1,4 +1,3 @@
-
 -- 병원 데이터
 INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital1', '1234', 3901); -- 의료법인 길의료재단 길병원
 INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital2', '1234', 2310); -- 인하대학교의과대학부속병원
@@ -34,10 +33,10 @@ insert into category (cname) values
 ('AED 건의사항');
 
 -- 2. board (uno=1~2번 회원이 작성, cno는 위에서 만든 카테고리)
-insert into board (btitle, bcontent, cno, uno) values
-('첫 번째 공지입니다.', '길병원 관련 안내입니다.', 1, 1),
-('문의드립니다', 'AED 더 설치해주세요', 2, 2),
-('AED 설치 요망', '인천 남동구에 AED 더 설치해주세요', 2, 3);
+insert into board (btitle, bcontent, bview, cno, uno) values
+('첫 번째 공지입니다.', '길병원 관련 안내입니다.', 3, 1, 1),
+('문의드립니다', 'AED 더 설치해주세요', 5, 2, 2),
+('AED 설치 요망', '인천 남동구에 AED 더 설치해주세요', 7, 2, 3);
 -- 3. ireply (uno=1이 댓글 작성, bno는 위 게시글 번호로 가정)
 insert into ireply (rcontent, uno, bno) values
 ('설치 완료', 1, 2),
