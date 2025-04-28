@@ -25,7 +25,7 @@ public class ReplyEntity extends BaseTime {
     private UserEntity userEntity;
 
     @ManyToOne
-    @JoinColumn(name="ino",referencedColumnName = "ino")
+    @JoinColumn(name="bno",referencedColumnName = "bno")
     private BoardEntity boardEntity;
 
     public ReplyDto toDto(){
