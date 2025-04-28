@@ -1,6 +1,5 @@
 package HeartGuard.Board.model.entity;
 
-import HeartGuard.Board.model.dto.BaseTime;
 import HeartGuard.Board.model.dto.ReplyDto;
 import HeartGuard.User.model.entity.UserEntity;
 import jakarta.persistence.*;

@@ -1,12 +1,8 @@
 package HeartGuard.Board.Category;
 
-import HeartGuard.Board.model.dto.BaseTime;
-import HeartGuard.Board.model.entity.BoardEntity;
+import HeartGuard.Board.model.entity.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "category")

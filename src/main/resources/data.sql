@@ -1,5 +1,5 @@
 -- 병원 데이터
-INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital1', '1234', 3901); -- 의료법인 길의료재단 길병원
+INSERT INTO hospital(hid, hpwd, apino ) VALUES ('hospital1', '1234', 3901); -- 의료법인 길의료재단 길병원
 INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital2', '1234', 2310); -- 인하대학교의과대학부속병원
 INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital3', '1234', 6234); -- 가톨릭관동대학교인천성모병원
 INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital4', '1234', 2532); -- 가톨릭관동대학교국제성모병원
@@ -33,18 +33,18 @@ insert into category (cname) values
 ('AED 건의사항');
 
 -- 2. board (uno=1~2번 회원이 작성, cno는 위에서 만든 카테고리)
-insert into board (btitle, bcontent, bview, cno, uno) values
-('첫 번째 공지입니다.', '길병원 관련 안내입니다.', 3, 1, 1),
-('문의드립니다', 'AED 더 설치해주세요', 5, 2, 2),
-('AED 설치 요망', '인천 남동구에 AED 더 설치해주세요', 7, 2, 3);
+insert into board (btitle, bcontent, bview, cno, uno,create_at) values
+('첫 번째 공지입니다.', '길병원 관련 안내입니다.', 3, 1, 1,NOW()),
+('문의드립니다', 'AED 더 설치해주세요', 5, 2, 2,NOW()),
+('AED 설치 요망', '인천 남동구에 AED 더 설치해주세요', 7, 2, 3,NOW());
 -- 3. ireply (uno=1이 댓글 작성, bno는 위 게시글 번호로 가정)
-insert into ireply (rcontent, uno, bno) values
-('설치 완료', 1, 2),
-('설치 완료', 1, 3);
+insert into ireply (rcontent, uno, bno,create_at) values
+('설치 완료', 1, 2,NOW()),
+('설치 완료', 1, 3,NOW());
 
 -- 4. hlog (병원 방문 기록, uno=1,2,3,4번 사용자, hno=1~4로 가정)
-insert into hlog (llat, llong, lstate, uno, hno) values
-('37.448894', '126.702515', 1, 1, 1),  -- 길병원
-('37.456486', '126.633448', 1, 2, 2),  -- 인하대병원
-('37.474467', '126.642024', 1, 3, 3),  -- 인천성모병원
-('37.518291', '126.719215', 1, 4, 4);  -- 국제성모병원
+insert into hlog (llat, llong, lstate, uno, hno,create_at) values
+('37.448894', '126.702515', 1, 1, 1,NOW()),  -- 길병원
+('37.456486', '126.633448', 1, 2, 2,NOW()),  -- 인하대병원
+('37.474467', '126.642024', 1, 3, 3,NOW()),  -- 인천성모병원
+('37.518291', '126.719215', 1, 4, 4,NOW());  -- 국제성모병원

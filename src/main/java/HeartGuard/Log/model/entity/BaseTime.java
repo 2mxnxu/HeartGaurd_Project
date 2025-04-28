@@ -1,4 +1,4 @@
-package HeartGuard.Board.model.dto;
+package HeartGuard.Log.model.entity;
 
 
 import jakarta.persistence.EntityListeners;

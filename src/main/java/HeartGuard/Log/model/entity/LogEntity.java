@@ -1,14 +1,10 @@
 package HeartGuard.Log.model.entity;
 
 import HeartGuard.Hospital.model.entity.HospitalEntity;
-import HeartGuard.Log.model.dto.BaseTime;
 import HeartGuard.Log.model.dto.LogDto;
 import HeartGuard.User.model.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.catalina.User;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "hlog")
