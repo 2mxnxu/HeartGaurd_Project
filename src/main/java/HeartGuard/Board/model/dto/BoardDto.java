@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +21,7 @@ public class BoardDto {
     private int bview;
     private long cno;
     private int uno;
+    private LocalDateTime createAt;
 
     public BoardEntity toEntity(UserEntity userEntity,CategoryEntity categoryEntity){
         return BoardEntity.builder()
