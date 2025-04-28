@@ -18,7 +18,7 @@ public class BoardEntity extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bno;
+    private long bno;
 
     private String btitle;
 

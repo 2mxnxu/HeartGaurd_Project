@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class BoardDto {
-    private int bno;
+    private long bno;
     private String btitle;
     private String bcontent;
     private int bview;
@@ -33,4 +33,19 @@ public class BoardDto {
                 .userEntity(userEntity)
                 .build();
     }
+
+    private String cname;
+
+    public static BoardDto toDto(BoardEntity boardEntity){
+        return BoardDto.builder()
+                .bno(boardEntity.getBno())
+                .btitle(boardEntity.getBtitle())
+                .bcontent(boardEntity.getBcontent())
+                .bview(boardEntity.getBview())
+                .cno(boardEntity.getCategoryEntity().getCno())
+                .cname(boardEntity.getCategoryEntity().getCname())
+                .uno(boardEntity.getUserEntity().getUno())
+                .build();
+    }
+
 }

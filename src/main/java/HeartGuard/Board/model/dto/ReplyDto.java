@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class ReplyDto {
-    private int rno;
+    private long rno;
     private String rcontent;
     private LocalDateTime rdate;
     private int uno;

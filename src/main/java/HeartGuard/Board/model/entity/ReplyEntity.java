@@ -16,7 +16,7 @@ public class ReplyEntity extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rno;
+    private long rno;
 
     private String rcontent;
 
