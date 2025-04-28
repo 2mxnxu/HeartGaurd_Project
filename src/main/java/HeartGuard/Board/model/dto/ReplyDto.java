@@ -19,7 +19,7 @@ public class ReplyDto {
     private String rcontent;
     private LocalDateTime rdate;
     private int uno;
-    private int ino;
+    private int bno;
 
     public ReplyEntity toEntity(UserEntity userEntity, BoardEntity boardEntity){
         return ReplyEntity.builder()

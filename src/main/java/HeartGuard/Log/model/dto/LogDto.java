@@ -16,14 +16,18 @@ import java.time.LocalDateTime;
 @Builder
 public class LogDto {
     private int lno;
-    private String lloc;
+    private double llat;
+    private double llong;
+    private int lstate;
     private int uno;
     private int hno;
 
     public LogEntity toEntity(UserEntity userEntity, HospitalEntity hospitalEntity){
         return LogEntity.builder()
                 .lno(this.lno)
-                .lloc(this.lloc)
+                .llat(this.llat)
+                .llong(this.llong)
+                .lstate(this.lstate)
                 .userEntity(userEntity)
                 .hospitalEntity(hospitalEntity)
                 .build();
