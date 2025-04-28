@@ -1,6 +1,5 @@
 package HeartGuard.Board.Category;
 
-import HeartGuard.Board.model.entity.BaseTime;
 import jakarta.persistence.*;
 import lombok.*;
 

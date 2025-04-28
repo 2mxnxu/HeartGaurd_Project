@@ -1,5 +1,6 @@
 package HeartGuard.Log.model.entity;
 
+import HeartGuard.Board.model.dto.BaseTime;
 import HeartGuard.Hospital.model.entity.HospitalEntity;
 import HeartGuard.Log.model.dto.LogDto;
 import HeartGuard.User.model.entity.UserEntity;
