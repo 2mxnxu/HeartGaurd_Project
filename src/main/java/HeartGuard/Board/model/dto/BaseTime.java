@@ -1,4 +1,10 @@
+package HeartGuard.Board.model.dto;
+
+<<<<<<<< HEAD:src/main/java/HeartGuard/Log/model/entity/BaseTime.java
 package HeartGuard.Log.model.entity;
+========
+package HeartGuard.Board.model.entity;
+>>>>>>>> origin/ryu:src/main/java/HeartGuard/Board/model/entity/BaseTime.java
 
 
 import jakarta.persistence.EntityListeners;

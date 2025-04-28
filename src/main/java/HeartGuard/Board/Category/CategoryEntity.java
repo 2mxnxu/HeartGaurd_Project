@@ -12,7 +12,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryEntity extends BaseTime {
+public class CategoryEntity  {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY ) // auto_increment
     private long cno;

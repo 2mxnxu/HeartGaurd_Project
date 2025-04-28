@@ -1,5 +1,6 @@
 package HeartGuard.Board.model.entity;
 
+import HeartGuard.Board.model.dto.BaseTime;
 import HeartGuard.Board.model.dto.BoardDto;
 import HeartGuard.Board.Category.CategoryEntity;
 import HeartGuard.User.model.entity.UserEntity;
@@ -42,6 +43,7 @@ public class BoardEntity extends BaseTime {
                 .bview(this.bview)
                 .cno(categoryEntity.getCno())
                 .uno(userEntity.getUno())
+                .createAt(this.getCreateAt())
                 .build();
     }
 }
