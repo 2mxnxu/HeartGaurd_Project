@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,19 +22,13 @@ public class LogService {
     private final LogEntityRepository logEntityRepository;
     private final HospitalEntityRepository hospitalEntityRepository;
     private final UserEntityRepository userEntityRepository;
-    public LogDto viewLog(int hno) {
-        Optional<LogEntity> logEntityOptional = logEntityRepository.findById(hno);
-        if (logEntityOptional.isEmpty()) return null;
-        LogEntity logEntity = logEntityOptional.get();
-        return LogDto.toDto(logEntity);
+    public List<LogDto> viewLogByHospital(int hno) {
+        List<LogEntity> logs = logEntityRepository.findByHospitalEntity_Hno(hno);
+        return logs.stream()
+                .map(LogDto::toDto)
+                .collect(Collectors.toList());
     }
-    public void submit(int uno, double llat, double llong) {
-        Optional<UserEntity> userOptional = userEntityRepository.findById(uno);
-        if (userOptional.isEmpty()) {
-            throw new RuntimeException("사용자를 찾을 수 없습니다.");
-        }
-        UserEntity userEntity = userOptional.get();
-
+    public void submit(double llat, double llong) {
         List<HospitalEntity> hospitals = hospitalEntityRepository.findAll();
 
         for (HospitalEntity hospitalEntity : hospitals) {
@@ -41,10 +36,11 @@ public class LogService {
                     .llat(llat)
                     .llong(llong)
                     .lstate(2)
-                    .userEntity(userEntity)
                     .hospitalEntity(hospitalEntity)
                     .build();
             logEntityRepository.save(logEntity);
         }
     }
+
+
 }
