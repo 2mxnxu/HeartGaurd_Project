@@ -28,15 +28,15 @@ public class ReplyEntity extends BaseTime {
     @JoinColumn(name="bno",referencedColumnName = "bno")
     private BoardEntity boardEntity;
 
-//    public ReplyDto toDto(){
-//        return ReplyDto.builder()
-//                .rno(this.rno)
-//                .rcontent(this.rcontent)
-//                .rdate(this.getCreateAt())
-//                .uno(userEntity.getUno())
+    public ReplyDto toDto(){
+        return ReplyDto.builder()
+                .rno(this.rno)
+                .rcontent(this.rcontent)
+                .rdate(this.getCreateAt())
+                .uno(userEntity.getUno())
 //                .bno(boardEntity.getBno())
-//                .build();
-//    }
+                .build();
+    }
 
 
 

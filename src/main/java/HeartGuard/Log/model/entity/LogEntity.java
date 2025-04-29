@@ -24,7 +24,6 @@ public class LogEntity extends BaseTime {
     private int lstate;
     private String phone;
 
-
     @ManyToOne
     @JoinColumn(name = "hno", referencedColumnName = "hno")
     private HospitalEntity hospitalEntity;

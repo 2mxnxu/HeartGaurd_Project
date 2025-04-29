@@ -22,7 +22,7 @@ public class LogDto {
     private String phone;
     private int hno;
 
-    public LogEntity toEntity(UserEntity userEntity, HospitalEntity hospitalEntity){
+    public LogEntity toEntity(HospitalEntity hospitalEntity){
         return LogEntity.builder()
                 .lno(this.lno)
                 .llat(this.llat)
