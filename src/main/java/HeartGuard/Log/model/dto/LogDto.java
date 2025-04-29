@@ -19,7 +19,7 @@ public class LogDto {
     private double llat;
     private double llong;
     private int lstate;
-    private int uno;
+    private String phone;
     private int hno;
 
     public LogEntity toEntity(UserEntity userEntity, HospitalEntity hospitalEntity){
@@ -28,7 +28,7 @@ public class LogDto {
                 .llat(this.llat)
                 .llong(this.llong)
                 .lstate(this.lstate)
-                .userEntity(userEntity)
+                .phone(this.phone)
                 .hospitalEntity(hospitalEntity)
                 .build();
     }
@@ -39,7 +39,7 @@ public class LogDto {
                 .llat(logEntity.getLlat())
                 .llong(logEntity.getLlong())
                 .lstate(logEntity.getLstate())
-                .uno(logEntity.getUserEntity().getUno())
+                .phone(logEntity.getPhone())
                 .hno(logEntity.getHospitalEntity().getHno())
                 .build();
     }

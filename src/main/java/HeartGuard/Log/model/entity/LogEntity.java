@@ -22,10 +22,8 @@ public class LogEntity extends BaseTime {
     private double llat;
     private double llong;
     private int lstate;
+    private String phone;
 
-    @ManyToOne
-    @JoinColumn(name = "uno", referencedColumnName = "uno")
-    private UserEntity userEntity;
 
     @ManyToOne
     @JoinColumn(name = "hno", referencedColumnName = "hno")
@@ -37,7 +35,7 @@ public class LogEntity extends BaseTime {
                 .llat(llat)
                 .llong(llong)
                 .lstate(lstate)
-                .uno(userEntity.getUno())
+                .phone(phone)
                 .hno(hospitalEntity.getHno())
                 .build();
     }
