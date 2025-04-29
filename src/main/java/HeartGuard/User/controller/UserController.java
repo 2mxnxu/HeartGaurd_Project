@@ -79,7 +79,7 @@ public class UserController {
     @GetMapping("/all")
     public ResponseEntity<Page<UserDto>> getUsers(
             @RequestHeader("Authorization") String token,
-            @RequestParam(value = "uno", required = false) Long uno,
+            @RequestParam(value = "uno", required = false) Integer uno,
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "keyword", required = false) String keyword) {
 

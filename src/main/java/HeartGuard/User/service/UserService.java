@@ -90,7 +90,7 @@ public class UserService {
         return jwtUtil.validateToken1(token);
     }
 
-    public Page<UserDto> getUsers(Long uno, int page, String keyword) {
+    public Page<UserDto> getUsers(Integer uno, int page, String keyword) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by("uno").descending());
 
         // 개별 조회
