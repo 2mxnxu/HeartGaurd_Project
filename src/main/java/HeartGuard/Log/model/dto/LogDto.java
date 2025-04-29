@@ -32,4 +32,15 @@ public class LogDto {
                 .hospitalEntity(hospitalEntity)
                 .build();
     }
+
+    public static LogDto toDto(LogEntity logEntity) {
+        return LogDto.builder()
+                .lno(logEntity.getLno())
+                .llat(logEntity.getLlat())
+                .llong(logEntity.getLlong())
+                .lstate(logEntity.getLstate())
+                .uno(logEntity.getUserEntity().getUno())
+                .hno(logEntity.getHospitalEntity().getHno())
+                .build();
+    }
 }
