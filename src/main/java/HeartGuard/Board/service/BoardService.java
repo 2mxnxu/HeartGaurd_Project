@@ -40,18 +40,18 @@ public class BoardService {
         return true;
     }
 
-    //    //카테고리별 게시물 전체조회
-//    public List<BoardDto> allBoard(Long cno){
-//        List<BoardEntity> boardEntityList;
-//        if(cno !=null && cno>0){
-//            boardEntityList = boardEntityRepository.findByCategoryEntityCno(cno);
-//        }else{
-//            boardEntityList = boardEntityRepository.findAll();
-//        }
-//        return boardEntityList.stream()
-//                .map(BoardDto ::toDto)
-//                .collect(Collectors.toList());
-//    }
+        //카테고리별 게시물 전체조회
+    public List<BoardDto> categoryall(Long cno){
+        List<BoardEntity> boardEntityList;
+        if(cno !=null && cno>0){
+            boardEntityList = boardEntityRepository.findByCategoryEntityCno(cno);
+        }else{
+            boardEntityList = boardEntityRepository.findAll();
+        }
+        return boardEntityList.stream()
+                .map(BoardDto ::toDto)
+                .collect(Collectors.toList());
+    }
     //게시물 개별조회
     public BoardDto viewBoard(long bno){
         Optional<BoardEntity> boardEntityOptional =

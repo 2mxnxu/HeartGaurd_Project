@@ -39,12 +39,12 @@ public class BoardController {
     }//f e
 
     //2.카테고리별 게시물 전체조회
-//    @GetMapping("/all")
-//    public ResponseEntity<List<BoardDto>>allBoard(
-//            @RequestParam(required = false)long cno){
-//        List<BoardDto> boardDtoList = boardService.allBoards( cno );
-//        return ResponseEntity.status(200).body(boardDtoList);
-//    }
+    @GetMapping("/categoryall")
+    public ResponseEntity<List<BoardDto>>categoryall(
+            @RequestParam(required = false)long cno){
+        List<BoardDto> boardDtoList = boardService.categoryall( cno );
+        return ResponseEntity.status(200).body(boardDtoList);
+    }
 
     //3.게시물 개별 조회
     @GetMapping("/view")
