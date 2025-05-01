@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface LogEntityRepository extends JpaRepository<LogEntity, Integer> {
-    List<LogEntity> findByHospitalEntityHno(int hno);
-    List<LogEntity> findByLstate(int lstate);
-    Optional<LogEntity> findById(int lno);
+    List<LogEntity> findByHospitalEntityHno(int hno);  // 병원 hno로 로그 조회
+    List<LogEntity> findByLstate(int lstate);  // 상태로 로그 조회
+    Optional<LogEntity> findById(int lno);  // lno로 로그 조회
 }

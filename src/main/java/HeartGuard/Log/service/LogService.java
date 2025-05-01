@@ -5,8 +5,7 @@ import HeartGuard.Hospital.model.repository.HospitalEntityRepository;
 import HeartGuard.Log.model.dto.LogDto;
 import HeartGuard.Log.model.entity.LogEntity;
 import HeartGuard.Log.model.repository.LogEntityRepository;
-import HeartGuard.User.model.entity.UserEntity;
-import HeartGuard.User.model.respository.UserEntityRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,13 +20,18 @@ import java.util.stream.Collectors;
 public class LogService {
     private final LogEntityRepository logEntityRepository;
     private final HospitalEntityRepository hospitalEntityRepository;
-    private final UserEntityRepository userEntityRepository;
-    public List<LogDto> viewLogByHospital(int hno) {
-        List<LogEntity> logs = logEntityRepository.findByHospitalEntityHno(hno);
-        return logs.stream()
-                .map(LogDto::toDto)
-                .collect(Collectors.toList());
+
+    // 병원 hno로 해당 병원의 로그만 조회
+    public List<LogDto> viewLogByHospital(String hid) {
+        HospitalEntity hospital = hospitalEntityRepository.findByHid(hid);
+        if (hospital == null) {
+            throw new EntityNotFoundException("병원을 찾을 수 없습니다.");
+        }
+
+        List<LogEntity> logs = logEntityRepository.findByHospitalEntityHno(hospital.getHno());
+        return logs.stream().map(LogDto::toDto).collect(Collectors.toList());
     }
+
     public void submit(String phone, double llat, double llong) {
         List<HospitalEntity> hospitals = hospitalEntityRepository.findAll();
 
@@ -35,13 +39,15 @@ public class LogService {
             LogEntity logEntity = LogEntity.builder()
                     .llat(llat)
                     .llong(llong)
-                    .lstate(2)
+                    .lstate(2)  // 초기 상태 2
                     .phone(phone)
                     .hospitalEntity(hospitalEntity)
                     .build();
             logEntityRepository.save(logEntity);
         }
     }
+
+    // 로그 상태 업데이트
     public String updateLog(int lno, int lstate) {
         Optional<LogEntity> logOptional = logEntityRepository.findById(lno);
         if (logOptional.isEmpty()) {
@@ -53,20 +59,19 @@ public class LogService {
         }
 
         // lstate를 1 또는 0으로 업데이트
-        if (lstate == 1) {
-            log.setLstate(1);
-        } else if (lstate == 0) {
-            log.setLstate(0);
-        }
+        log.setLstate(lstate);
         logEntityRepository.save(log);
 
-        // 전체 로그에서 lstate가 2인 것들을 찾음
-        List<LogEntity> others = logEntityRepository.findByLstate(2);
+        // lstate가 1인 경우만 다른 로그들을 0으로 변경
+        if (lstate == 1) {
+            // 전체 로그에서 lstate가 2인 것들을 찾음
+            List<LogEntity> others = logEntityRepository.findByLstate(2);
 
-        for (LogEntity other : others) {
-            if (other.getLno() != lno) {
-                other.setLstate(0);
-                logEntityRepository.save(other);
+            for (LogEntity other : others) {
+                if (other.getLno() != lno) {
+                    other.setLstate(0);  // 다른 상태로 설정
+                    logEntityRepository.save(other);
+                }
             }
         }
         return "완료";

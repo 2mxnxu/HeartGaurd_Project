@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface HospitalEntityRepository extends JpaRepository<HospitalEntity, Integer> {
     Optional<HospitalEntity> findByApino(Integer apino);
     HospitalEntity findByHid(String hid);
+
+    Optional<HospitalEntity> findByHno(int hno);
 }
