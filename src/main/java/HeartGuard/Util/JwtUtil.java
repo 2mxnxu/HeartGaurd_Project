@@ -43,7 +43,7 @@ public class JwtUtil {
             System.out.println( claims.getSubject() );
             String uid = claims.getSubject();
             String redisToken = stringRedisTemplate.opsForValue().get("JWT:"+uid);
-            if( uid.equals( redisToken ) ){ return  uid; }
+            if( token1.equals( redisToken ) ){ return  uid; }
             else{  System.out.println(" >> 중복 로그인 감지 또는 토큰 없음");  }
         }catch ( ExpiredJwtException e){
             System.out.println(" >> JWT 토큰 기한 만료 : " + e );
