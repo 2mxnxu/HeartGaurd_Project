@@ -72,7 +72,42 @@ public class BoardController {
         if(result==false) return ResponseEntity.status(400).body(false);
         return ResponseEntity.status(200).body(true);
     }
-    //5.카테고리 조회
+
+    //5. 게시물 수정(+이미지)
+    @PutMapping("/update")
+    public ResponseEntity<Boolean> updateBoard(
+            @RequestHeader("Authorization")String token,
+            @ModelAttribute BoardDto boardDto){
+
+        int loginUno;
+        try {
+            loginUno = userService.info(token).getUno();
+        }catch (Exception e) {
+            return ResponseEntity.status(401).body(false);
+        }
+            boolean result = boardService.updateBoard(boardDto, loginUno);
+            if (result == false) return ResponseEntity.status(400).body(false);
+            return ResponseEntity.status(200).body(true);
+    }
+    //6. 이미지 개별 삭제
+    @DeleteMapping("/image")
+    public ResponseEntity<Boolean> deleteImage(
+            @RequestParam long ino, @RequestHeader("Authorization") String token){
+
+        int loginUno;
+        try{loginUno = userService.info(token).getUno();
+        }catch (Exception e) {
+            return ResponseEntity.status(401).body(false);
+        }
+        boolean result = boardService.deleteImage(ino,loginUno);
+        if(result == false) ResponseEntity.status(400).body(false);
+        return ResponseEntity.status(200).body(true);
+
+    }
+
+
+
+    //7.카테고리 조회
     @GetMapping("/category")
     public ResponseEntity<List<CategoryDto>> allCategory(){
         List<CategoryDto>categoryDtoList = boardService.allCategory();
