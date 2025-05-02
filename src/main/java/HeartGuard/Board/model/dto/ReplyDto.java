@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 public class ReplyDto {
     private long rno;
     private String rcontent;
-    private LocalDateTime rdate;
     private long uno;
     private long bno;
     private String uname;
+    private LocalDateTime create_at;
 
     public ReplyEntity toEntity(BoardEntity boardEntity, UserEntity userEntity) {
         return ReplyEntity.builder()
@@ -41,6 +41,7 @@ public class ReplyDto {
                 .bno(replyEntity.getBoardEntity().getBno())
                 .uno(replyEntity.getUserEntity().getUno())
                 .uname(replyEntity.getUserEntity().getUname())
+                .create_at(replyEntity.getCreateAt())
                 .build();
     }
 

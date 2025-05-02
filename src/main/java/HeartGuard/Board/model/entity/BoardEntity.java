@@ -46,6 +46,7 @@ public class BoardEntity extends BaseTime {
     @ToString.Exclude @Builder.Default
     private List<ReplyEntity> replyEntityList = new ArrayList<>();
 
+
 //    public BoardDto toDto() {
 //        return BoardDto.builder()
 //                .bno(this.bno)

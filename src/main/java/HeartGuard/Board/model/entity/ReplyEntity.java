@@ -32,7 +32,6 @@ public class ReplyEntity extends BaseTime {
         return ReplyDto.builder()
                 .rno(this.rno)
                 .rcontent(this.rcontent)
-                .rdate(this.getCreateAt())
                 .uno(userEntity.getUno())
                .bno(boardEntity.getBno())
                 .build();

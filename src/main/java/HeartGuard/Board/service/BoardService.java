@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -34,13 +33,7 @@ public class BoardService {
     private final ImgEntityRepository imgEntityRepository;
     private final FileUtil fileUtil;
 
-//    {
-//      "bcontent":"내용",
-//      "btitle":"제목",
-//      "cno":1
-//    }
     public boolean postBoard(BoardDto boardDto,int loginUno){
-
         Optional<UserEntity> optionalUserEntity = userEntityRepository.findById(loginUno);
         if(optionalUserEntity.isEmpty())return false;
         Optional<CategoryEntity> optionalCategoryEntity = categoryEntityRepository.findById(boardDto.getCno());
@@ -53,11 +46,9 @@ public class BoardService {
         if( boardDto.getFiles() != null && !boardDto.getFiles().isEmpty() ) {
             for (MultipartFile file : boardDto.getFiles()) {
                 String saveFileName = fileUtil.fileUpload(file);
-
                 if (saveFileName == null) {
                     throw new RuntimeException("업로드 중에 오류 발생");
                 }
-
                 ImgEntity imgEntity = ImgEntity.builder().iname(saveFileName).build();
                 imgEntity.setBoardEntity(saveEntity);
                 imgEntityRepository.save(imgEntity);
@@ -66,7 +57,6 @@ public class BoardService {
         return true;
     }
 
-        //카테고리별 게시물 전체조회
     public List<BoardDto> categoryall(Long cno){
         List<BoardEntity> boardEntityList;
         if(cno !=null && cno>0){
@@ -78,24 +68,17 @@ public class BoardService {
                 .map(BoardDto ::toDto)
                 .collect(Collectors.toList());
     }
-    //게시물 개별조회
+
     public BoardDto viewBoard(long bno){
-        Optional<BoardEntity> boardEntityOptional =
-                boardEntityRepository.findById(bno);
-
+        Optional<BoardEntity> boardEntityOptional = boardEntityRepository.findById(bno);
         if(boardEntityOptional.isEmpty()) return null;
-
-        BoardEntity boardEntity =
-                boardEntityOptional.get();
-
+        BoardEntity boardEntity = boardEntityOptional.get();
         boardEntity.setBview(boardEntity.getBview()+1);
         return BoardDto.toDto(boardEntity);
     }
 
-    //게시물 개별 삭제
     public boolean deleteBoard(long bno, int loginUno){
-        Optional<BoardEntity> boardEntityOptional =
-                boardEntityRepository.findById(bno);
+        Optional<BoardEntity> boardEntityOptional = boardEntityRepository.findById(bno);
         if(boardEntityOptional.isEmpty()) return false;
         BoardEntity boardEntity = boardEntityOptional.get();
         if(boardEntity.getUserEntity().getUno() != loginUno){
@@ -105,7 +88,6 @@ public class BoardService {
         return true;
     }
 
-    //게시물 수정(+이미지)
     public boolean updateBoard(BoardDto boardDto, int loginUno){
         Optional<BoardEntity> boardEntityOptional = boardEntityRepository.findById(boardDto.getBno());
         if(boardEntityOptional.isEmpty()) return false;
@@ -127,13 +109,12 @@ public class BoardService {
                         .iname(saveFileName)
                         .boardEntity(boardEntity)
                         .build();
-                imgEntityRepository.save( imgEntity ); // 이미지 엔티티 저장(영속) , 자바객체 <--영속O--> DB테이블레코드
+                imgEntityRepository.save(imgEntity);
             }
         }
         return true;
     }
 
-    //이미지 개별 조회
     public boolean deleteImage(long ino, int loginUno){
         Optional<ImgEntity> optionalImgEntity = imgEntityRepository.findById(ino);
         if(optionalImgEntity.isEmpty())return false;
@@ -146,7 +127,6 @@ public class BoardService {
         return true;
     }
 
-    //카테고리 조회
     public List<CategoryDto>allCategory(){
         List<CategoryEntity> categoryEntityList = categoryEntityRepository.findAll();
         List<CategoryDto> categoryDtoList = categoryEntityList.stream()
@@ -155,7 +135,6 @@ public class BoardService {
         return categoryDtoList;
     }
 
-    //검색 + 페이징처리
     public Page<BoardDto> allBoards(Long cno, int page, int size, String keyword){
         Pageable pageable = PageRequest.of(page-1,size, Sort.by(Sort.Direction.DESC,"bno"));
         Page<BoardEntity> boardEntities = boardEntityRepository.findBySearch(cno,keyword,pageable);
@@ -163,5 +142,8 @@ public class BoardService {
         return boardDtoList;
     }
 
-
+    //  게시글 엔티티 직접 조회 (댓글용)
+    public BoardEntity getBoardEntity(long bno) {
+        return boardEntityRepository.findById(bno).orElse(null);
+    }
 }
