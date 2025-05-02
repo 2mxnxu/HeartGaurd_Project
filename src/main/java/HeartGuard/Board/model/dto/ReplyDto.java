@@ -18,8 +18,8 @@ public class ReplyDto {
     private long rno;
     private String rcontent;
     private LocalDateTime rdate;
-    private int uno;
-    private int bno;
+    private long uno;
+    private long bno;
 
     public ReplyEntity toEntity(UserEntity userEntity, BoardEntity boardEntity){
         return ReplyEntity.builder()
