@@ -111,6 +111,7 @@ public class UserController {
         }
     }
 
+    // 만약에 True 이면 관리자(관리자모드) false 이면 병원 info 한테 요청해서 null 아니면 병원 (병원 신고내역) null 이면 일반 회원 (신고하기)
 
 
 }
