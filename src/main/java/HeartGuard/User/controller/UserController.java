@@ -82,7 +82,6 @@ public class UserController {
             @RequestParam(value = "uno", required = false) Integer uno,
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "keyword", required = false) String keyword) {
-
         String uid = userService.extractUidFromToken(token);
 
         // 관리자 인증 (ustate == 1)
@@ -94,6 +93,23 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
+    @DeleteMapping("/delete/{uno}")
+    public ResponseEntity<String> deleteUser(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Integer uno) {
+
+        String requesterUid = userService.extractUidFromToken(token);
+        if (requesterUid == null || !userService.isAdmin(requesterUid)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한 없음");
+        }
+
+        boolean result = userService.deleteUser(uno, requesterUid);
+        if (result) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("삭제 실패 (자기 자신 또는 존재하지 않음)");
+        }
+    }
 
 
 }
