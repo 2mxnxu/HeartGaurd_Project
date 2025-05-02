@@ -93,7 +93,7 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/deleteUser")
     public ResponseEntity<String> deleteUser(
             @RequestHeader("Authorization") String token,
             @RequestParam("uno") Integer uno) {
