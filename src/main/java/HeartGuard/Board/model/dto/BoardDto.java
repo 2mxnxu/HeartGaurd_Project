@@ -29,14 +29,15 @@ public class BoardDto {
     private LocalDateTime createAt;
     private List<MultipartFile> files = new ArrayList<>();
 
-    public BoardEntity toEntity(UserEntity userEntity,CategoryEntity categoryEntity){
-        return BoardEntity.builder()
+//    public BoardEntity toEntity(UserEntity userEntity,CategoryEntity categoryEntity){
+public BoardEntity toEntity(){
+    return BoardEntity.builder()
                 .bno(this.bno)
                 .btitle(this.btitle)
                 .bcontent(this.bcontent)
                 .bview(this.bview)
-                .categoryEntity(categoryEntity)
-                .userEntity(userEntity)
+//                .categoryEntity(categoryEntity)
+//                .userEntity(userEntity)
                 .build();
     }
 

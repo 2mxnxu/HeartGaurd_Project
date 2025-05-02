@@ -34,15 +34,35 @@ public class BoardService {
     private final ImgEntityRepository imgEntityRepository;
     private final FileUtil fileUtil;
 
+//    {
+//      "bcontent":"내용",
+//      "btitle":"제목",
+//      "cno":1
+//    }
     public boolean postBoard(BoardDto boardDto,int loginUno){
+
         Optional<UserEntity> optionalUserEntity = userEntityRepository.findById(loginUno);
         if(optionalUserEntity.isEmpty())return false;
         Optional<CategoryEntity> optionalCategoryEntity = categoryEntityRepository.findById(boardDto.getCno());
-        BoardEntity boardEntity = boardDto.toEntity(optionalUserEntity.get(), optionalCategoryEntity.get());
+        if(optionalCategoryEntity.isEmpty())return false;
+        BoardEntity boardEntity = boardDto.toEntity();
         boardEntity.setUserEntity(optionalUserEntity.get());
         boardEntity.setCategoryEntity(optionalCategoryEntity.get());
         BoardEntity saveEntity = boardEntityRepository.save(boardEntity);
         if(saveEntity.getBno()<=0)return false;
+        if( boardDto.getFiles() != null && !boardDto.getFiles().isEmpty() ) {
+            for (MultipartFile file : boardDto.getFiles()) {
+                String saveFileName = fileUtil.fileUpload(file);
+
+                if (saveFileName == null) {
+                    throw new RuntimeException("업로드 중에 오류 발생");
+                }
+
+                ImgEntity imgEntity = ImgEntity.builder().iname(saveFileName).build();
+                imgEntity.setBoardEntity(saveEntity);
+                imgEntityRepository.save(imgEntity);
+            }
+        }
         return true;
     }
 
@@ -91,7 +111,7 @@ public class BoardService {
         if(boardEntityOptional.isEmpty()) return false;
         BoardEntity boardEntity = boardEntityOptional.get();
         if(boardEntity.getUserEntity().getUno() != loginUno) return false;
-        Optional<CategoryEntity> categoryEntityOptional = categoryEntityRepository.findById(boardDto.getBno());
+        Optional<CategoryEntity> categoryEntityOptional = categoryEntityRepository.findById(boardDto.getCno());
         if(categoryEntityOptional.isEmpty()) return false;
         CategoryEntity categoryEntity = categoryEntityOptional.get();
         boardEntity.setBtitle(boardDto.getBtitle());
