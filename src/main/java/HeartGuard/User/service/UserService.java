@@ -117,4 +117,18 @@ public class UserService {
         return user != null && user.getUstate() == 1;
     }
 
+    public boolean deleteUser(Integer targetUno, String requesterUid) {
+        // 삭제 대상
+        Optional<UserEntity> targetOpt = userEntityRepository.findById(targetUno);
+        if (targetOpt.isEmpty()) return false;
+
+        UserEntity target = targetOpt.get();
+
+        // 본인 삭제 방지
+        if (target.getUid().equals(requesterUid)) return false;
+
+        userEntityRepository.deleteById(targetUno);
+        return true;
+    }
+
 }
