@@ -93,10 +93,10 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/delete/{uno}")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUser(
             @RequestHeader("Authorization") String token,
-            @PathVariable Integer uno) {
+            @RequestParam("uno") Integer uno) {
 
         String requesterUid = userService.extractUidFromToken(token);
         if (requesterUid == null || !userService.isAdmin(requesterUid)) {
@@ -110,6 +110,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("삭제 실패 (자기 자신 또는 존재하지 않음)");
         }
     }
+
 
 
 }
