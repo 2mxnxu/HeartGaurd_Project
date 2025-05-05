@@ -24,6 +24,7 @@ public class BoardDto {
     private String btitle;
     private String bcontent;
     private int bview;
+    private String bwriter;
     private long cno;
     private int uno;
     private LocalDateTime createAt;
@@ -53,6 +54,8 @@ public BoardEntity toEntity(){
                 .cno(boardEntity.getCategoryEntity().getCno())
                 .cname(boardEntity.getCategoryEntity().getCname())
                 .uno(boardEntity.getUserEntity().getUno())
+                .bwriter(boardEntity.getUserEntity().getUname())
+                .createAt(boardEntity.getCreateAt())
                 .images(boardEntity.getImgEntityList().stream()
                         .map(ImgEntity::getIname)
                         .collect(Collectors.toList())
