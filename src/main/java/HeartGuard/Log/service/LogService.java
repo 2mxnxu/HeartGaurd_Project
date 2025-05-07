@@ -33,8 +33,15 @@ public class LogService {
     }
 
     public void submit(String phone, double llat, double llong) {
-        List<HospitalEntity> hospitals = hospitalEntityRepository.findAll();
+        // 동일한 전화번호로 상태가 2인 로그가 이미 존재하는지 확인
+        List<LogEntity> existingLogs = logEntityRepository.findByPhoneAndLstate(phone, 2);
+        if (!existingLogs.isEmpty()) {
+            // 이미 대기 중인 로그가 존재하면 새로운 로그를 생성하지 않음
+            return;
+        }
 
+        // 새로운 로그 생성
+        List<HospitalEntity> hospitals = hospitalEntityRepository.findAll();
         for (HospitalEntity hospitalEntity : hospitals) {
             LogEntity logEntity = LogEntity.builder()
                     .llat(llat)
@@ -46,6 +53,7 @@ public class LogService {
             logEntityRepository.save(logEntity);
         }
     }
+
 
     // 로그 상태 업데이트
     public String updateLog(int lno, int lstate) {
