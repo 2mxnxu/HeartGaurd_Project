@@ -86,7 +86,9 @@ public class UserService {
         if (userDto.getUname() != null) {
             userEntity.setUname(userDto.getUname());
         }
-
+        if (userDto.getUphone() != null) {
+            userEntity.setUphone(userDto.getUphone());
+        }
         userEntityRepository.save(userEntity);
         return true;
     }
