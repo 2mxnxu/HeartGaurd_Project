@@ -46,6 +46,11 @@ public class BoardEntity extends BaseTime {
     @ToString.Exclude @Builder.Default
     private List<ReplyEntity> replyEntityList = new ArrayList<>();
 
+    public void setImages(List<ImgEntity> images) {
+        this.imgEntityList = images;
+    }
+
+
 
 //    public BoardDto toDto() {
 //        return BoardDto.builder()

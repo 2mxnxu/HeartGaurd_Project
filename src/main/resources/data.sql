@@ -34,7 +34,8 @@ insert into category (cname) values
 
 -- 2. board (uno=1~2번 회원이 작성, cno는 위에서 만든 카테고리)
 insert into board (btitle, bcontent, bview, cno, uno,create_at) values
-('첫 번째 공지입니다.', '길병원 관련 안내입니다.', 3, 1, 1,NOW()),
+('🚨AED 사용법 6단계','첨부 자료를 참고해주세요.',3,1,1,NOW()),
+('🩺연령별 심폐소생술 방법','첨부 자료를 참고해주세요.',3,1,1,NOW()),
 ('문의드립니다', 'AED 더 설치해주세요', 5, 2, 2,NOW()),
 ('AED 설치 요망', '인천 남동구에 AED 더 설치해주세요', 7, 2, 3,NOW());
 -- 3. ireply (uno=1이 댓글 작성, bno는 위 게시글 번호로 가정)
@@ -48,3 +49,6 @@ insert into hlog (llat, llong, lstate, phone, hno,create_at) values
 ('37.456486', '126.633448', 1, "010-1233-3456", 2,NOW()),  -- 인하대병원
 ('37.474467', '126.642024', 1, "010-1234-5678", 3,NOW()),  -- 인천성모병원
 ('37.518291', '126.719215', 1, "010-1234-5679", 4,NOW());  -- 국제성모병원
+
+INSERT INTO img (create_at,iname, bno) VALUES
+(NOW(),'AED.JPG', 1),(NOW(),'CPR.JPG',2);

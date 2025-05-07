@@ -33,29 +33,48 @@ public class BoardService {
     private final ImgEntityRepository imgEntityRepository;
     private final FileUtil fileUtil;
 
-    public boolean postBoard(BoardDto boardDto,int loginUno){
+    public boolean postBoard(BoardDto boardDto, int loginUno) {
         Optional<UserEntity> optionalUserEntity = userEntityRepository.findById(loginUno);
-        if(optionalUserEntity.isEmpty())return false;
+        if (optionalUserEntity.isEmpty()) return false;
+
         Optional<CategoryEntity> optionalCategoryEntity = categoryEntityRepository.findById(boardDto.getCno());
-        if(optionalCategoryEntity.isEmpty())return false;
+        if (optionalCategoryEntity.isEmpty()) return false;
+
         BoardEntity boardEntity = boardDto.toEntity();
         boardEntity.setUserEntity(optionalUserEntity.get());
         boardEntity.setCategoryEntity(optionalCategoryEntity.get());
         BoardEntity saveEntity = boardEntityRepository.save(boardEntity);
-        if(saveEntity.getBno()<=0)return false;
-        if( boardDto.getFiles() != null && !boardDto.getFiles().isEmpty() ) {
+
+        if (saveEntity.getBno() <= 0) return false;
+
+        // 파일이 존재할 경우
+        if (boardDto.getFiles() != null && !boardDto.getFiles().isEmpty()) {
             for (MultipartFile file : boardDto.getFiles()) {
-                String saveFileName = fileUtil.fileUpload(file);
-                if (saveFileName == null) {
-                    throw new RuntimeException("업로드 중에 오류 발생");
+                try {
+                    // 파일을 업로드하고, 파일 이름을 받아옵니다.
+                    String saveFileName = fileUtil.fileUpload(file);
+
+                    // 파일이 제대로 저장되지 않았다면 예외 처리
+                    if (saveFileName == null) {
+                        throw new RuntimeException("업로드 중에 오류 발생: 파일 저장 실패");
+                    }
+
+                    // 이미지 엔티티 생성 후, 게시글과 연결
+                    ImgEntity imgEntity = ImgEntity.builder().iname(saveFileName).build();
+                    imgEntity.setBoardEntity(saveEntity);
+                    imgEntityRepository.save(imgEntity);
+
+                    System.out.println("이미지 저장 성공: " + saveFileName);
+
+                } catch (Exception e) {
+                    System.err.println("파일 업로드 중 오류 발생: " + e.getMessage());
+                    throw new RuntimeException("파일 업로드 실패", e);
                 }
-                ImgEntity imgEntity = ImgEntity.builder().iname(saveFileName).build();
-                imgEntity.setBoardEntity(saveEntity);
-                imgEntityRepository.save(imgEntity);
             }
         }
         return true;
     }
+
 
     public List<BoardDto> categoryall(Long cno){
         List<BoardEntity> boardEntityList;
