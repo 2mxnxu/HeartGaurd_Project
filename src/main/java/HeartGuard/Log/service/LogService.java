@@ -21,7 +21,7 @@ public class LogService {
     private final LogEntityRepository logEntityRepository;
     private final HospitalEntityRepository hospitalEntityRepository;
 
-    // 병원 hno로 해당 병원의 로그만 조회
+    // 병원 hid로 해당 병원의 로그만 조회
     public List<LogDto> viewLogByHospital(String hid) {
         HospitalEntity hospital = hospitalEntityRepository.findByHid(hid);
         if (hospital == null) {
