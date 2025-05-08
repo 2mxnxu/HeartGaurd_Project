@@ -20,12 +20,17 @@ INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital18', '$2a$10$ces9K/Dj7MU
 INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital19', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', 3169); -- 인천힘찬종합병원
 INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital20', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', 4009); -- 인천적십자병원
 INSERT INTO hospital(hid, hpwd, apino) VALUES ('hospital21', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', 8118); -- 인천백병원
+
 -- 사용자 데이터
 INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('admin', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '관리자', 1, '010-2222-2222');
 INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('abc123', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '이민수', 0, '010-2222-2223');
 INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('1111', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '장민우', 0, '010-2222-2225');
 INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('jeon', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '전은서', 0, '010-2222-2226');
 INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('bear', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '류예나', 0, '010-2222-2227');
+INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('qwe1234', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '김성현', 0, '010-2222-2228');
+INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('qweqwe11', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '김광현', 0, '010-2222-2247');
+INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('wonseock47', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '오원석', 0, '010-2222-2347');
+INSERT INTO user(uid, upwd, uname, ustate, uphone) VALUES ('jjj333', '$2a$10$ces9K/Dj7MUvZT4z5Z53yent9GqwfzsEhGuPNA9Ct6NzXq6ZHEXw.', '정준재', 0, '010-2222-3333');
 
 -- 1. category (카테고리 샘플 데이터)
 insert into category (cname) values
@@ -37,11 +42,15 @@ insert into board (btitle, bcontent, bview, cno, uno,create_at) values
 ('🚨AED 사용법 6단계','첨부 자료를 참고해주세요.',3,1,1,NOW()),
 ('🩺연령별 심폐소생술 방법','첨부 자료를 참고해주세요.',3,1,1,NOW()),
 ('문의드립니다', 'AED 더 설치해주세요', 5, 2, 2,NOW()),
-('AED 설치 요망', '인천 남동구에 AED 더 설치해주세요', 7, 2, 3,NOW());
+('AED 설치 요망', '인천 남동구에 AED 더 설치해주세요', 7, 2, 3,NOW()),
+('AED 추가 설치 요청', '지하철 역사 출입구 근처에도 설치가 필요합니다.', 6, 2, 4, NOW()),
+('설치 요청드립니다', '공원 내에 AED가 없어 위급 상황에 대비가 안 됩니다.', 4, 2, 6, NOW()),
+('더 많은 설치 필요', '대단지 아파트 단지 내 AED 설치를 검토해주세요.', 5, 2, 9, NOW());
 -- 3. ireply (uno=1이 댓글 작성, bno는 위 게시글 번호로 가정)
 insert into ireply (rcontent, uno, bno,create_at) values
-('설치 완료', 1, 2,NOW()),
-('설치 완료', 1, 3,NOW());
+('민원이 접수되었습니다. 궁금한 점이 있으시면, 해당 기관 담당자 연락처로 문의해주세요.', 1, 3,NOW()),
+('민원이 접수되었습니다. 궁금한 점이 있으시면, 해당 기관 담당자 연락처로 문의해주세요.', 1, 4,NOW()),
+('민원이 접수되었습니다. 궁금한 점이 있으시면, 해당 기관 담당자 연락처로 문의해주세요.', 1, 5,NOW());
 
 -- 4. hlog (병원 방문 기록, uno=1,2,3,4번 사용자, hno=1~4로 가정)
 insert into hlog (llat, llong, lstate, phone, hno,create_at) values
