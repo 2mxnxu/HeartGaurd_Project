@@ -5,6 +5,7 @@ import HeartGuard.Hospital.model.repository.HospitalEntityRepository;
 import HeartGuard.Log.model.dto.LogDto;
 import HeartGuard.Log.model.entity.LogEntity;
 import HeartGuard.Log.model.repository.LogEntityRepository;
+import HeartGuard.Socket.handler.WebSocketHandler;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class LogService {
     private final LogEntityRepository logEntityRepository;
     private final HospitalEntityRepository hospitalEntityRepository;
+    private final WebSocketHandler webSocketHandler;
 
     // 병원 hid로 해당 병원의 로그만 조회
     public List<LogDto> viewLogByHospital(String hid) {
@@ -28,7 +30,11 @@ public class LogService {
             throw new EntityNotFoundException("병원을 찾을 수 없습니다.");
         }
 
+        // 병원에 해당하는 로그를 조회
         List<LogEntity> logs = logEntityRepository.findByHospitalEntityHno(hospital.getHno());
+
+        webSocketHandler.enterHospitalSocket(hid);
+
         return logs.stream().map(LogDto::toDto).collect(Collectors.toList());
     }
 
