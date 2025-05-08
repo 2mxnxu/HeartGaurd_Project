@@ -58,7 +58,6 @@ public class BoardService {
                     if (saveFileName == null) {
                         throw new RuntimeException("업로드 중에 오류 발생: 파일 저장 실패");
                     }
-
                     // 이미지 엔티티 생성 후, 게시글과 연결
                     ImgEntity imgEntity = ImgEntity.builder().iname(saveFileName).build();
                     imgEntity.setBoardEntity(saveEntity);
