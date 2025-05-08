@@ -22,6 +22,9 @@ public class HospitalDto {
     private String emgTel;
     private String address;
 
+    private double hlat;
+    private double hlong;
+
     public HospitalEntity toEntity(){
         return HospitalEntity.builder()
                 .hno(hno)
@@ -34,6 +37,8 @@ public class HospitalDto {
                 .tel(tel)
                 .emgTel(emgTel)
                 .address(address)
+                .hlat(hlat)
+                .hlong(hlong)
                 .build();
     }
 }
