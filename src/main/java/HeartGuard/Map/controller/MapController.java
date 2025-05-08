@@ -16,8 +16,8 @@ public class MapController {
 
     private final MapService mapService;
 
-//    @GetMapping("/gethospital")
-//    public ResponseEntity<List<HospitalDto>> getHospital(@RequestBody HospitalDto hospitalDto){
-//        return mapService.getHospital(hospitalDto);
-//    }
+    @GetMapping("/gethospital")
+    public ResponseEntity<List<HospitalDto>> getHospital(){
+        return mapService.getHospital();
+    }
 }
