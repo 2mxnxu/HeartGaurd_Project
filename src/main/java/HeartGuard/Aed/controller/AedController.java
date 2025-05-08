@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,9 +19,9 @@ public class AedController {
     private final AedService aedService;
 
     @GetMapping("/api1")
-    public String getAedInfo() {
-        aedService.test();
-        return "AED 정보 콘솔 출력";
+    public List<Map<String, Object>> getAedInfo() {
+        // 공공데이터 API 호출 결과 반환
+        return aedService.getAedInfo();
     }
 
     @GetMapping("/api2")
