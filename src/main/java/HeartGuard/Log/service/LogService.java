@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.TextMessage;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,19 +30,11 @@ public class LogService {
         if (hospital == null) {
             throw new EntityNotFoundException("병원을 찾을 수 없습니다.");
         }
-
         // 병원에 해당하는 로그를 조회
         List<LogEntity> logs = logEntityRepository.findByHospitalEntityHno(hospital.getHno());
-
-        // WebSocket 연결은 별도로 처리
-        connectToHospitalSocket(hid);
-
         return logs.stream().map(LogDto::toDto).collect(Collectors.toList());
     }
 
-    private void connectToHospitalSocket(String hid) {
-        webSocketHandler.enterHospitalSocket(hid);
-    }
 
     public void submit(String phone, double llat, double llong) {
         // 동일한 전화번호로 상태가 2인 로그가 이미 존재하는지 확인
@@ -63,6 +56,14 @@ public class LogService {
                     .build();
             logEntityRepository.save(logEntity);
         }
+
+        // 병원 서버소켓에게 메시지 보내기.
+        try {
+            webSocketHandler.handleTextMessage( null , new TextMessage("\uD83D\uDEA8응급 신고 발생! 즉시 확인 바랍니다.\uD83D\uDEA8"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 
