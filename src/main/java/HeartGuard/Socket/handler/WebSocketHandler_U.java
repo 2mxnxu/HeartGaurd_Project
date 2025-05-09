@@ -1,6 +1,7 @@
 package HeartGuard.Socket.handler;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -19,11 +20,13 @@ public class WebSocketHandler_U extends TextWebSocketHandler {
         System.out.println("사용자" + session + "에 소켓 연결");
         System.out.println(sessionList);
     }
+
     @Override
-    public void afterConnectionClosed(WebSocketSession session, org.springframework.web.socket.CloseStatus status) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessionList.remove(session);  // 사용자별 소켓 세션 제거
         System.out.println("사용자 " + sessionList + "의 소켓 연결 종료.");
     }
+
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         System.out.println( sessionList );
