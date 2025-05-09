@@ -33,9 +33,14 @@ public class LogService {
         // 병원에 해당하는 로그를 조회
         List<LogEntity> logs = logEntityRepository.findByHospitalEntityHno(hospital.getHno());
 
-        webSocketHandler.enterHospitalSocket(hid);
+        // WebSocket 연결은 별도로 처리
+        connectToHospitalSocket(hid);
 
         return logs.stream().map(LogDto::toDto).collect(Collectors.toList());
+    }
+
+    private void connectToHospitalSocket(String hid) {
+        webSocketHandler.enterHospitalSocket(hid);
     }
 
     public void submit(String phone, double llat, double llong) {

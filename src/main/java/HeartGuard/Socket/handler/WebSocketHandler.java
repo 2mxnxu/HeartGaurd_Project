@@ -30,18 +30,11 @@ public class WebSocketHandler extends TextWebSocketHandler {
 
     // 병원에 해당하는 소켓에 입장
     public void enterHospitalSocket(String hid) {
-        // 이 부분에서 병원에 대한 연결을 추가하는 로직을 처리할 수 있습니다.
         WebSocketSession session = sessionMap.get(hid);  // 병원 ID에 해당하는 세션 찾기
         if (session != null) {
             System.out.println("병원 " + hid + "에 소켓 입장");
         } else {
             System.out.println("병원 " + hid + "에 대한 연결이 없습니다.");
         }
-    }
-
-    // 병원에 해당하는 소켓에서 퇴장
-    public void exitHospitalSocket(String hid) {
-        sessionMap.remove(hid);  // 병원별로 소켓 세션 제거
-        System.out.println("병원 " + hid + "에서 소켓 퇴장 처리.");
     }
 }
