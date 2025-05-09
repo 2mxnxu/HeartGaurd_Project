@@ -8,7 +8,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import java.util.*;
 
 @Component
-public class WebSocketHandler extends TextWebSocketHandler {
+public class WebSocketHandler_H extends TextWebSocketHandler {
 
     private static List<WebSocketSession> sessionList = new Vector<>();
 

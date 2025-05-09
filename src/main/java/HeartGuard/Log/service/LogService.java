@@ -5,7 +5,8 @@ import HeartGuard.Hospital.model.repository.HospitalEntityRepository;
 import HeartGuard.Log.model.dto.LogDto;
 import HeartGuard.Log.model.entity.LogEntity;
 import HeartGuard.Log.model.repository.LogEntityRepository;
-import HeartGuard.Socket.handler.WebSocketHandler;
+import HeartGuard.Socket.handler.WebSocketHandler_H;
+import HeartGuard.Socket.handler.WebSocketHandler_U;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ import java.util.stream.Collectors;
 public class LogService {
     private final LogEntityRepository logEntityRepository;
     private final HospitalEntityRepository hospitalEntityRepository;
-    private final WebSocketHandler webSocketHandler;
+    private final WebSocketHandler_H webSocketHandler;
+    private final WebSocketHandler_U webSocketHandlerU;
 
     // 병원 hid로 해당 병원의 로그만 조회
     public List<LogDto> viewLogByHospital(String hid) {
@@ -76,6 +78,7 @@ public class LogService {
         LogEntity log = logOptional.get();
         if (log.getLstate() != 2) {
             return "수락할 수 있는 게 없습니다.";
+            // 거절했다고 소켓으로 메시지 보내기 WebSocketHandler_U 사용
         }
 
         // lstate를 1 또는 0으로 업데이트
@@ -86,6 +89,12 @@ public class LogService {
         if (lstate == 1) {
             // 전체 로그에서 lstate가 2인 것들을 찾음
             List<LogEntity> others = logEntityRepository.findByLstate(2);
+            // 수락했다고 소켓으로 메시지 보내기 WebSocketHandler_U 사용
+            try {
+                webSocketHandlerU.handleTextMessage( null , new TextMessage("\uD83D\uDEA8신고를 수락했습니다.\uD83D\uDEA8"));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
             for (LogEntity other : others) {
                 if (other.getLno() != lno) {
