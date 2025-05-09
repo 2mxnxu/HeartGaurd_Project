@@ -6,32 +6,34 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.List;
-import java.util.Vector;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class WebSocketHandler_U extends TextWebSocketHandler {
 
-    private static List<WebSocketSession> sessionList = new Vector<>();
+    private static Map<String, WebSocketSession> sessionMap = new HashMap<>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        sessionList.add(session);
-        System.out.println("사용자" + session + "에 소켓 연결");
-        System.out.println(sessionList);
+        String sessionId = session.getId(); // 세션 ID를 키로 사용
+        sessionMap.put(sessionId, session);
+        System.out.println("사용자 " + sessionId + "에 소켓 연결");
+        System.out.println(sessionMap);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        sessionList.remove(session);  // 사용자별 소켓 세션 제거
-        System.out.println("사용자 " + sessionList + "의 소켓 연결 종료.");
+        String sessionId = session.getId();
+        sessionMap.remove(sessionId); // 세션 ID로 제거
+        System.out.println("사용자 " + sessionId + "의 소켓 연결 종료.");
     }
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.println( sessionList );
-        for( WebSocketSession session1 : sessionList ){
-            session1.sendMessage( message );
+        System.out.println(sessionMap);
+        for (WebSocketSession targetSession : sessionMap.values()) {
+            targetSession.sendMessage(message);
         }
     }
 }

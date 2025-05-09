@@ -65,7 +65,6 @@ public class LogService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
 
@@ -78,7 +77,6 @@ public class LogService {
         LogEntity log = logOptional.get();
         if (log.getLstate() != 2) {
             return "수락할 수 있는 게 없습니다.";
-            // 거절했다고 소켓으로 메시지 보내기 WebSocketHandler_U 사용
         }
 
         // lstate를 1 또는 0으로 업데이트
