@@ -65,7 +65,6 @@ public class LogService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
     }
 
 
@@ -78,7 +77,6 @@ public class LogService {
         LogEntity log = logOptional.get();
         if (log.getLstate() != 2) {
             return "수락할 수 있는 게 없습니다.";
-            // 거절했다고 소켓으로 메시지 보내기 WebSocketHandler_U 사용
         }
 
         // lstate를 1 또는 0으로 업데이트
@@ -90,8 +88,10 @@ public class LogService {
             // 전체 로그에서 lstate가 2인 것들을 찾음
             List<LogEntity> others = logEntityRepository.findByLstate(2);
             // 수락했다고 소켓으로 메시지 보내기 WebSocketHandler_U 사용
+            String 병원이름 = logOptional.get().getHospitalEntity().getAddress()  + "("+logOptional.get().getHospitalEntity().getHid()+")";
+            String 신고자번호 = logOptional.get().getPhone();
             try {
-                webSocketHandlerU.handleTextMessage( null , new TextMessage("\uD83D\uDEA8신고를 수락했습니다.\uD83D\uDEA8"));
+                webSocketHandlerU.handleTextMessage( null , new TextMessage("\uD83D\uDEA8 신고를 수락했습니다. \uD83D\uDEA8" +"/"+ 병원이름 +"/"+ 신고자번호 ));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

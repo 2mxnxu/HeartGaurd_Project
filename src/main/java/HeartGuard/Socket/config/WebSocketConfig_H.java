@@ -14,6 +14,6 @@ public class WebSocketConfig_H implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler( new WebSocketHandler_H(), "/ws/hospital").setAllowedOrigins("*"); // 모든 도메인 허용
-        registry.addHandler( new WebSocketHandler_U(), "/ws/user").setAllowedOrigins("*"); // 모든 도메인 허용
+        registry.addHandler( new WebSocketHandler_U(), "/ws/user/**").setAllowedOrigins("*"); // 모든 도메인 허용
     }
 }
