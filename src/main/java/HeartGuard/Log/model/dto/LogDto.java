@@ -21,6 +21,7 @@ public class LogDto {
     private int lstate;
     private String phone;
     private int hno;
+    private String hname;
     private LocalDateTime create_at;
 
     public LogEntity toEntity(HospitalEntity hospitalEntity){
@@ -43,6 +44,7 @@ public class LogDto {
                 .phone(logEntity.getPhone())
                 .create_at(logEntity.getCreateAt())
                 .hno(logEntity.getHospitalEntity().getHno())
+                .hname(logEntity.getHospitalEntity().getName())
                 .build();
     }
 }
