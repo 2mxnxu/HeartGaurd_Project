@@ -21,7 +21,7 @@ public class WebSocketHandler_U extends TextWebSocketHandler {
         String path = uri.getPath(); // 예: "/ws/user/01012345678"
         System.out.println("path = " + path);
         String[] parts = path.split("/"); // URI를 "/"로 분리
-         String phone = parts[2]; // 전화번호는 세 번째 부분
+         String phone = parts[3]; // 전화번호는 네 번째 부분
 
         sessionMap.put(phone, session);
         System.out.println("WebSocket 연결됨: " + sessionMap);
