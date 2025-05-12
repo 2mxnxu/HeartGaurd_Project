@@ -61,7 +61,8 @@ public class LogService {
 
         // 병원 서버소켓에게 메시지 보내기.
         try {
-            webSocketHandler.handleTextMessage( null , new TextMessage("\uD83D\uDEA8응급 신고 발생! 즉시 확인 바랍니다.\uD83D\uDEA8"));
+            webSocketHandler.handleTextMessage( null ,
+                    new TextMessage("\uD83D\uDEA8응급 신고 발생! 즉시 확인 바랍니다.\uD83D\uDEA8"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
