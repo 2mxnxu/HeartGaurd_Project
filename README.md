@@ -55,7 +55,7 @@ SPRING과 Flutter를 활용하여 "가장 빠른 AED와 병원 안내 서비스"
 
 ## 💻 개발환경
 - **Version** : Java 17
-- **IDE** : <img src="https://img.shields.io/badge/Android Studio-3DDC84?style=flat-square&logo=Android Studio&logoColor=white"/> <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=flat-square&logo=intellij-idea&logoColor=white">
+- **IDE** : <img src="https://img.shields.io/badge/Android Studio-3DDC84?style=flat&logo=Android&logoColor=white"/> <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=flat-square&logo=intellij-idea&logoColor=white">
 - **BackEnd** : <img src="https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white">
 - **FrontEnd** :<img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white"/> 
 - **협업도구** : <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
